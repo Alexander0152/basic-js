@@ -1,5 +1,13 @@
 const CustomError = require("../extensions/custom-error");
 
+var row = 'AABCDEFGHIJKLMNOPQRSTUVWXYZ'
+var table = [];
+table[0] = (" " + row.substring(1)).split("");
+table[1] = (row).split("");
+for (let i = 2; i <= 26; i++) {
+  row = row.charAt(2) + row.substring(2) + row.charAt(0);
+  table[i] = row.split('');
+}
 class VigenereCipheringMachine {
 
   constructor(reverse = true) {
@@ -8,15 +16,6 @@ class VigenereCipheringMachine {
 
   encrypt(message, key) {
     if(message === undefined || key === undefined) throw new Error;
-
-    var row = 'AABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    var table = [];
-    table[0] = (" " + row.substring(1)).split("");
-    table[1] = (row).split("");
-    for (let i = 2; i <= 26; i++) {
-      row = row.charAt(2) + row.substring(2) + row.charAt(0);
-      table[i] = row.split('');
-    }
 
     var arrMessage = message.split('');
     var arrLongKey = getLongKey(message, key).split('');
@@ -35,15 +34,6 @@ class VigenereCipheringMachine {
   }
   decrypt(message, key) {
     if(message === undefined || key === undefined) throw new Error;
-
-    var row = 'AABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    var table = [];
-    table[0] = (" " + row.substring(1)).split("");
-    table[1] = (row).split("");
-    for (let i = 2; i <= 26; i++) {
-      row = row.charAt(2) + row.substring(2) + row.charAt(0);
-      table[i] = row.split('');
-    }
 
     var arrMessage = message.split('');
     var arrLongKey = getLongKey(message, key).split('');
@@ -65,7 +55,6 @@ class VigenereCipheringMachine {
     return this.reverse ? result.split('').reverse().join('') : result;
   }
 }
-
 function getLongKey(message, key) {
   var longKey = "";
   var keyLength = key.length;
@@ -91,6 +80,5 @@ function getLongKey(message, key) {
   }
   return longKey.toUpperCase();
 };
-
 
 module.exports = VigenereCipheringMachine;
